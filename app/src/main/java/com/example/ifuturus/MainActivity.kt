@@ -2,30 +2,81 @@ package com.example.ifuturus
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    // Profile Picture in Navigation Header
+    private lateinit var muserImageNavHeader: CircleImageView
+    private lateinit var mnameNavHeader: TextView
+    private lateinit var muserEmail: TextView
+
+    private val ANONYMOUS = "anonymous"
+
+    // Declare variable
+    private var mUsername: String? = null
+
+    // Firebase instance variables
+    private lateinit var mFirebaseAuth: FirebaseAuth
+    private var mFirebaseUser: FirebaseUser? = null
+
+    // Google Sign In
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+    // Database Reference
+    private lateinit var reference: DatabaseReference
+
+    // Database Listener
+    private lateinit var mListener: ValueEventListener
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Navigation Header
+        // Declare Navigation Header Image
+        val navigationView2 = findViewById<NavigationView>(R.id.nav_view)
+        val hView2 = navigationView2.getHeaderView(0)
+        muserImageNavHeader = hView2.findViewById(R.id.userImageNavHeader)
+        mnameNavHeader = hView2.findViewById(R.id.nameNavHeader)
+        muserEmail = hView2.findViewById(R.id.userEmail)
+
+        // Set default username is anonymous.
+        mUsername = ANONYMOUS
+
+        // Initialize Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        mFirebaseUser = mFirebaseAuth.currentUser
+
+        if (mFirebaseUser != null) {
+            // User is signed in
+            mUsername = mFirebaseUser?.getEmail()
+        } else {
+            // No user is signed in
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
 
         // Set up Navigation Drawer
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -39,6 +90,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+        // Get Log out button on Nav Header Drawer by wenz11
+        val hView = navView.getHeaderView(0)
+        val mBtnLogout = hView.findViewById<Button>(R.id.btnLogout)
+        mBtnLogout.setOnClickListener {
+                signOut()
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                finish()
+        }
+
+        // Set Text View to the user's email
+        val mUserEmail = hView.findViewById<TextView>(R.id.userEmail)
+        mUserEmail.text = mUsername
+    }
+
+    // Sign Out Function
+    private fun signOut() {
+        mFirebaseAuth.signOut()
+        Toast.makeText(
+            this, resources.getString(R.string.logout_successful),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
@@ -53,6 +126,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_report-> {
                 Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LodgeReportActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_chat -> {
                 Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show()

@@ -23,9 +23,10 @@ android {
 
     // Compile Kotlin
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = '29.0.0 rc3'
 
     kotlinOptions {
         jvmTarget = "1.8"
@@ -40,10 +41,33 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Add Support for Circular Image View
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     // Add Image loading and caching library for smooth scrolling
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+
+    // Firebase ML Vision - Image Labeling
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:19.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.0'
+
+    // Firebase support
+    implementation 'com.google.firebase:firebase-core:17.2.0'
+
+    // Add CameraX support
+    implementation "androidx.camera:camera-core:1.0.0-alpha06"
+    implementation "androidx.camera:camera-camera2:1.0.0-alpha06"
+
+    // Firebase Authentication by wenz11
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+
+    // Firebase - Google Authentication by wenz11
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+    // Firebase UI by wenz11
+    implementation 'com.firebaseui:firebase-ui-database:6.0.2'
+
+    // Firebase Real-time database by wenz11
+    implementation 'com.google.firebase:firebase-database:19.2.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -61,3 +85,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
