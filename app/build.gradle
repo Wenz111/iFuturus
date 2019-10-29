@@ -69,6 +69,11 @@ dependencies {
     // Firebase Real-time database by wenz11
     implementation 'com.google.firebase:firebase-database:19.2.0'
 
+    // Firebase Firestore
+    implementation platform('com.google.firebase:firebase-bom:17.0.0')
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.firebaseui:firebase-ui-auth:6.0.2'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'

@@ -195,7 +195,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 hashMap["name"] = "Name"
                                 hashMap["gender"] = "Gender"
                                 hashMap["dob"] = "Date of Birth"
-                                hashMap["ic"] = "Identification Number"
+                                hashMap["ic"] = "IC"
                                 hashMap["phonenumber"] = "Phone Number"
                                 hashMap["photoUrl"] = "default"
 

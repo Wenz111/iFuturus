@@ -23,6 +23,14 @@
     <string name="cancel">Cancel</string>
     <string name="password_format_error_message">Password must be more than 6 characters</string>
     <string name="your_email_address">Your Email Address</string>
+    <string name="invalid_phone_format">Invalid Phone Number Format +60XXXXXXXXX</string>
+    <string name="could_not_upload_image">Could Not Update Image</string>
+    <string name="no_image_selected">No image selected</string>
+    <string name="updating_profile_picture">Updating profile picture</string>
+    <string name="uploading">Uploading</string>
+    <string name="uploadSuccessful">Successfully Uploaded</string>
+    <string name="upload_in_progress">Upload in progress</string>
+    <string name="image_clicked">Kindly choose a photo to change profile picture</string>
 
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>

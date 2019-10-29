@@ -111,6 +111,58 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout_EditGender"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter Your Gender"
+                    android:text="Gender"
+                    android:textSize="17sp"
+                    android:visibility="gone"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/error"
+                    app:helperText="Your Gender"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editProfile_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout_EditDOB"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter Your Date of Birth"
+                    android:text="Date of Birth"
+                    android:textSize="17sp"
+                    android:visibility="gone"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="2dp"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/error"
+                    app:helperText="Your Date of Birth"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editProfile_DOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     android:id="@+id/editProfile_SetName"
                     android:layout_width="wrap_content"
@@ -135,8 +187,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="Email"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/editProfile_SetGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Gender"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/editProfile_SetDOB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Date of Birth"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -154,27 +224,27 @@
             app:contentPaddingTop="15dp">
 
             <TextView
-                android:id="@+id/editProfile_SetQuote"
+                android:id="@+id/editProfile_SetIC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginTop="0dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Quote"
+                android:text="IC"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 android:textStyle="italic" />
 
             <EditText
-                android:id="@+id/editProfile_quote"
+                android:id="@+id/editProfile_IC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginTop="0dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:hint="Enter Quote"
-                android:inputType="text"
-                android:text="Quote"
+                android:hint="Enter IC"
+                android:inputType="number"
+                android:text="IC"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 android:textStyle="italic"
@@ -209,13 +279,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="@color/colorPrimary"
         android:gravity="center_vertical|center_horizontal"
         android:text="Save Profile"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:visibility="gone"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
