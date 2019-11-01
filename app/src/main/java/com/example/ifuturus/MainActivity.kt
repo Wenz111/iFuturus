@@ -14,13 +14,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import com.bumptech.glide.Glide
+import com.example.ifuturus.model.userprofilemodel
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -71,6 +74,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (mFirebaseUser != null) {
             // User is signed in
             mUsername = mFirebaseUser?.getEmail()
+
+            // Database Reference - Assign variables to Navigation Header
+            reference = FirebaseDatabase.getInstance().getReference("userprofile").child(mFirebaseUser!!.uid)
+
+            mListener = reference.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    // Handle Cancel Action
+                }
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue(userprofilemodel::class.java)
+                    // Set Text View to the user's email
+                    userEmail.setText(user?.email)
+                    if (user?.name.equals("Name")) {
+                        nameNavHeader.setText("Name")
+                    } else {
+                        nameNavHeader.setText(user?.name)
+                    }
+                    if (user?.photoUrl.equals("default")) {
+                        userImageNavHeader.setImageResource(R.drawable.pikademo)
+                    } else {
+                        Glide.with(applicationContext).load(user?.photoUrl).into(userImageNavHeader)
+                    }
+                }
+            })
+            // Assign values to Navigation Header Ends Here
         } else {
             // No user is signed in
             startActivity(Intent(this, LoginActivity::class.java))
@@ -99,10 +128,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
         }
-
-        // Set Text View to the user's email
-        val mUserEmail = hView.findViewById<TextView>(R.id.userEmail)
-        mUserEmail.text = mUsername
     }
 
     // Sign Out Function

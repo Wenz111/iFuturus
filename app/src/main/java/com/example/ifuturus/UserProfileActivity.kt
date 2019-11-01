@@ -179,10 +179,10 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
         textInputLayout_EditDOB.visibility = View.VISIBLE
         editProfile_IC.visibility = View.VISIBLE
 
-        // Bugs in Kotlin -- Cannot Work
+        Log.d("Test Empty Field", "mTempName: $mTempName")
         // Display Empty Field to allow user fill in
         // Name Field
-/*        Toast.makeText(this,mTempName, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,mTempName, Toast.LENGTH_SHORT).show()
         if (mTempName.equals("Name")) {
             editProfile_name.setText("")
         } else {
@@ -190,28 +190,28 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
         // Phone Number Field
         if (mTempPhoneNumber.equals("Phone Number")) {
-            editProfile_name.setText("")
+            editProfile_phoneNumber.setText("")
         } else {
-            editProfile_name.setText(mTempPhoneNumber)
+            editProfile_phoneNumber.setText(mTempPhoneNumber)
         }
         // Gender Field
         if (mTempGender.equals("Gender")) {
-            editProfile_name.setText("")
+            editProfile_gender.setText("")
         } else {
-            editProfile_name.setText(mTempGender)
+            editProfile_gender.setText(mTempGender)
         }
         // Date of Birth Field
         if (mTempDOB.equals("Date of Birth")) {
-            editProfile_name.setText("")
+            editProfile_DOB.setText("dd/mm/yyyy")
         } else {
-            editProfile_name.setText(mTempDOB)
+            editProfile_DOB.setText(mTempDOB)
         }
         // IC Field
         if (mTempIC.equals("IC")) {
-            editProfile_name.setText("")
+            editProfile_IC.setText("")
         } else {
-            editProfile_name.setText(mTempIC)
-        }*/
+            editProfile_IC.setText(mTempIC)
+        }
     }
 
     private fun validateUserProfileInput(): Boolean {
@@ -248,53 +248,23 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun uploadImage() {
-/*        // Show Dialog
-        val pd = ProgressDialog(this@UserProfileActivity)
-        pd.setMessage(resources.getString(R.string.uploading))
-        pd.show()
-
-//--------------- Test
-                val mThread = object:Thread() {
-                    override fun run() {
-                    if (mImageUri != null)
-                    {
-                        val fileReference = storageReference.child((System.currentTimeMillis()).toString())
-
-                        fileReference.putFile(mImageUri!!).addOnSuccessListener {
-                            fileReference.downloadUrl.addOnSuccessListener {
-
-                                reference = FirebaseDatabase.getInstance().getReference("userprofile")
-                                    .child(mFirebaseUser!!.uid)
-                                val map = HashMap<String, Any>()
-                                map["photoUrl"] = it.toString()
-                                reference.updateChildren(map)
-                            }
-                        }
-                        pd.dismiss()
-                    }
-                    }
-                    }
-                    mThread.start()*/
-// ------ Test End
-
         Log.d("User Profile Activity", "Check mImageUrl: $mImageUri")
         if (mImageUri == null) return
 
         // storageReference = FirebaseStorage.getInstance().getReference("uploads")
-
 
         val filename = UUID.randomUUID().toString()
         val fileReference = FirebaseStorage.getInstance().getReference("/uploads/$filename")
 
         fileReference.putFile(mImageUri!!)
             .addOnSuccessListener {
-/*                fileReference.downloadUrl.addOnSuccessListener {
+                fileReference.downloadUrl.addOnSuccessListener {
 
                     reference = FirebaseDatabase.getInstance().getReference("userprofile").child(mFirebaseUser!!.uid)
                     val map = HashMap<String, Any>()
                     map["photoUrl"] = it.toString()
                     reference.updateChildren(map)
-                }*/
+                }
         }
     }
 
@@ -385,6 +355,7 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.editProfile_SaveButton -> {
                 ShowUserProfile()
+                uploadImage()
             }
             R.id.userImage -> {
                 openImage()

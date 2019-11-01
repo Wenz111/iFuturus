@@ -242,7 +242,7 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginTop="0dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:hint="Enter IC"
+                android:hint="Enter IC Without Dash and Spaces"
                 android:inputType="number"
                 android:text="IC"
                 android:textAlignment="center"
