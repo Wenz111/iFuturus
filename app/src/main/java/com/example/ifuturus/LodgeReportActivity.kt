@@ -3,6 +3,7 @@ package com.example.ifuturus
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -14,7 +15,6 @@ import android.widget.Toast
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.chip.Chip
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -29,8 +29,15 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
 import android.os.Build
+import android.location.LocationManager
+import com.example.ifuturus.model.userprofilemodel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import android.provider.Settings
+import com.example.ifuturus.model.lodgereportmodel
 
 private const val PERMISSION_REQUEST = 10
 
@@ -46,7 +53,31 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
     private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
     // Get Location
+    lateinit var locationManager: LocationManager
+    private var hasGps = false
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    // Handle storing and retrieving of key value pairs
+    private lateinit var mUserProfileDatabaseReference: DatabaseReference
+    private lateinit var mLodgeReportDatabaseReference: DatabaseReference
+
+    // Firebase instance variables
+    private lateinit var mFirebaseAuth: FirebaseAuth
+    private var mFirebaseUser: FirebaseUser? = null
+
+    // Database Reference
+    private lateinit var reference: DatabaseReference
+
+    // Store Temporary Value
+    private var mTempEmail : String? = null
+    private var mTempName : String? = null
+    private var mTempGender : String? = null
+
+    // Store Category Value
+    private var mTempCategory : String? = null
+
+    // Hold Unique Report ID
+    private val reportid = UUID.randomUUID().toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +89,40 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
 
         btnAddImageorVideo.setOnClickListener(this)
         btnSubmit.setOnClickListener(this)
+        chipGroup.setOnClickListener(this)
+        chippublic.setOnClickListener(this)
+        chipprivate.setOnClickListener(this)
         chipGroup2.setOnClickListener(this)
         btnChangeLocation.setOnClickListener(this)
 
         // Get Location
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        // Get current user
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        mFirebaseUser = mFirebaseAuth.currentUser
+        mUserProfileDatabaseReference = FirebaseDatabase.getInstance().getReference("userprofile")
+        mLodgeReportDatabaseReference = FirebaseDatabase.getInstance().getReference("lodgereport")
+
+        // Database Reference
+        reference = FirebaseDatabase.getInstance().getReference("userprofile").child(mFirebaseUser!!.uid)
+
+        // Get User Information
+        mTempEmail = mFirebaseUser!!.email.toString()
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                // Handle Cancel Action
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Handle Data Change Action
+                val user = dataSnapshot.getValue(userprofilemodel::class.java)
+                // Get User Personal Information
+                mTempName = user?.name
+                mTempGender = user?.gender
+            }
+        })
     }
 
     // Call Gallery
@@ -82,7 +142,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
         btnAddImageorVideo.setText("Change Image or Video")
     }
 
-    private fun addUploadRecordToDb(uri: String){
+/*    private fun addUploadRecordToDb(uri: String){
         val db = FirebaseFirestore.getInstance()
 
         val data = HashMap<String, Any>()
@@ -96,10 +156,10 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error saving to DB", Toast.LENGTH_LONG).show()
             }
-    }
+    }*/
 
     private fun uploadImage(){
-        Toast.makeText(this, "filePath = $filePath", Toast.LENGTH_SHORT).show()
+        Log.d("Lodge Report Activity", "Check filepath: $filePath")
         if(filePath != null){
             val ref = storageReference?.child("lodgereport/" + UUID.randomUUID().toString())
             val uploadTask = ref?.putFile(filePath!!)
@@ -113,8 +173,15 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
                 return@Continuation ref.downloadUrl
             })?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    // Get Uri link
                     val downloadUri = task.result
-                    addUploadRecordToDb(downloadUri.toString())
+
+                    // Store to the Lodge Report Real-time Database
+                    mLodgeReportDatabaseReference = FirebaseDatabase.getInstance().getReference("lodgereport").child(reportid)
+                    val map = HashMap<String, Any>()
+                    map["photoUrl"] = downloadUri.toString()
+                    mLodgeReportDatabaseReference.updateChildren(map)
                 } else {
                     // Handle failures
                     Log.d("Upload Tasks", "Handle Failures")
@@ -171,6 +238,8 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
+//        mTempCategory = ""
+
         for (label in labels) {
 
             Log.d("Image Labels", "Text: ${label.text}, Confidence: ${label.confidence}")
@@ -186,6 +255,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             chipGroup2.addView(chip)
+//            mTempCategory += "${label.text} "
         }
     }
 
@@ -215,21 +285,62 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
     // Get Location Function
     @SuppressLint("MissingPermission")
     private fun obtieneLocalizacion(){
-        // Change Button Text to Change Location
-        btnChangeLocation.setText("Change Location")
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-                // Convert to Location Address
-                val geocoder : Geocoder = Geocoder(this, Locale.getDefault())
-                val addresses : List<Address>
+        if(hasGps){
+            // Change Button Text to Change Location
+            btnChangeLocation.setText("Change Location")
 
-                addresses = geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    // Convert to Location Address
+                    val geocoder : Geocoder = Geocoder(this, Locale.getDefault())
+                    val addresses : List<Address>
 
-                // Display Location Address
-                textViewDisplayLocation.setText("Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
-                textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
-            }
+                    addresses = geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                    // Display Location Address
+                    textViewDisplayLocation.setText("Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
+                    textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
+                }
+        } else {
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
+
+    }
+
+    private fun saveToDatabase() {
+        var propertyType : String?= null
+
+        if (chippublic.isChecked) {
+            propertyType = "public"
+        } else {
+            propertyType = "private"
+        }
+
+        mTempCategory = ""
+
+        for (index in 0 until chipGroup2.childCount) {
+            val chip:Chip = chipGroup2.getChildAt(index) as Chip
+            mTempCategory += "${chip.text.toString()} "
+        }
+
+        // Save the data to the Database
+        // Pass all the parameters to store into the database
+        val saveToComplaintReportDatabase = lodgereportmodel(
+            mFirebaseUser!!.uid,
+            mTempName,
+            mTempEmail,
+            mTempGender,
+            propertyType,
+            editTextComplaintNotes.text.toString(),
+            textViewDisplayLocation.text.toString(),
+            mTempCategory,
+            "new",
+            ""
+        )
+        mLodgeReportDatabaseReference.child(reportid).setValue(saveToComplaintReportDatabase)
     }
 
 // Handle View On Click Action
@@ -245,7 +356,11 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             obtieneLocalizacion()
         }
         R.id.btnSubmit -> {
+            saveToDatabase()
             uploadImage()
+            Toast.makeText(this, "Successfully Submitted!", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
     }
