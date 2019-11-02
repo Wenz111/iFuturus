@@ -1,41 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
-    app:cardCornerRadius="5dp">
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="#e8f5e9"
         android:baselineAligned="false"
         android:orientation="vertical"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/Display_img"
-            android:layout_width="362dp"
-            android:layout_height="245dp"
-            android:layout_gravity="center"
-            android:src="@color/colorPrimaryDark"
-            />
-
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/Display_title"
-            android:layout_width="324dp"
-            android:layout_height="113dp"
-            android:layout_margin="5dp"
+            android:id="@+id/tv_report_id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Title"
+            android:paddingBottom="3dp"
+            android:text="Report ID"
             android:textColor="#080808"
-            android:textSize="24sp"
             android:textStyle="bold" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dcedc8"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <ImageView
+                android:id="@+id/iv_report_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="start"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@color/colorPrimaryDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_property_type"
+                    style="@style/LodgeReportStatusFontStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Property Type" />
+
+                <TextView
+                    android:id="@+id/tv_report_status"
+                    style="@style/LodgeReportStatusFontStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Report Status" />
+
+                <TextView
+                    android:id="@+id/tv_report_notes"
+                    style="@style/LodgeReportStatusFontStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Report Notes" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_report_category"
+                style="@style/LodgeReportStatusFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Report Category" />
+
+            <TextView
+                android:id="@+id/tv_report_location"
+                style="@style/LodgeReportStatusFontStyle"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Report Location" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/tv_report_submitted_by"
+                style="@style/LodgeReportStatusFontStyle"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Report Submitted By" />
+
+            <TextView
+                android:id="@+id/tv_report_datetime"
+                style="@style/LodgeReportStatusFontStyle"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Report Submitted On" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

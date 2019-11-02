@@ -15,6 +15,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.*
+import org.w3c.dom.Text
 
 class ReportStatusActivity : AppCompatActivity() {
 
@@ -57,7 +59,7 @@ class ReportStatusActivity : AppCompatActivity() {
             override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: lodgereportmodel) {
                 val reportId = getRef(position).key.toString()
 
-                Log.d("ReportStatusActivity-firebaseData Function", "Place ID: $reportId")
+                Log.d("ReportStatusActivity-firebaseData Function", "Report ID: $reportId")
 
                 ref.child(reportId).addValueEventListener(object: ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
@@ -68,13 +70,20 @@ class ReportStatusActivity : AppCompatActivity() {
                     override fun onDataChange(p0: DataSnapshot) {
 
                         // Set Value into each view of recycler view
-                        holder.txt_name.setText(model.complaintId)
-                        Picasso.get().load(model.photoUrl).into(holder.img_vet)
+                        holder.tvReportid.setText("Report ID: ${model.complaintId}")
+                        Picasso.get().load(model.photoUrl).into(holder.ivReportimage)
+                        holder.tvReportPropertyType.setText("Property Type: ${model.complaintDetails}")
+                        holder.tvReportStatus.setText("Report Status: ${model.complaintStatus}")
+                        holder.tvReportNotes.setText("Report Notes: \n${model.complaintNotes}")
+                        holder.tvReportCategory.setText("Report Category: \n${model.complaintCategory}")
+                        holder.tvReportLocation.setText("Report Location: \n${model.complaintLocation}")
+                        holder.tvReportSubmittedBy.setText("Report Submitted By: ${model.name}")
+                        holder.tvReportDateTime.setText("Report Submitted On: ${model.complaintDate}, ${model.complaintTime}")
 
                         // Test On Click Listener
-                        holder.img_vet.setOnClickListener(View.OnClickListener {
-                            Toast.makeText(this@ReportStatusActivity, "Picture is Clicked: $it", Toast.LENGTH_LONG).show()
-                        })
+                        holder.ivReportimage.setOnClickListener {
+                            Toast.makeText(this@ReportStatusActivity, "Picture is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
+                        }
                     }
                 })
             }
@@ -84,7 +93,14 @@ class ReportStatusActivity : AppCompatActivity() {
     }
 
     class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        internal var txt_name: TextView = itemView!!.findViewById<TextView>(R.id.Display_title)
-        internal var img_vet: ImageView = itemView!!.findViewById<ImageView>(R.id.Display_img)
+        internal var ivReportimage: ImageView = itemView!!.findViewById(R.id.iv_report_image)
+        internal var tvReportid: TextView = itemView!!.findViewById(R.id.tv_report_id)
+        internal var tvReportPropertyType: TextView = itemView!!.findViewById(R.id.tv_property_type)
+        internal var tvReportStatus: TextView = itemView!!.findViewById(R.id.tv_report_status)
+        internal var tvReportNotes: TextView = itemView!!.findViewById(R.id.tv_report_notes)
+        internal var tvReportCategory: TextView = itemView!!.findViewById(R.id.tv_report_category)
+        internal var tvReportLocation: TextView = itemView!!.findViewById(R.id.tv_report_location)
+        internal var tvReportSubmittedBy: TextView = itemView!!.findViewById(R.id.tv_report_submitted_by)
+        internal var tvReportDateTime: TextView = itemView!!.findViewById(R.id.tv_report_datetime)
     }
 }

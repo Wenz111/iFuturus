@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import android.provider.Settings
 import com.example.ifuturus.model.lodgereportmodel
+import java.text.SimpleDateFormat
 
 private const val PERMISSION_REQUEST = 10
 
@@ -326,6 +327,14 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             mTempCategory += "${chip.text} "
         }
 
+        // Get Today Date
+        val sdf = SimpleDateFormat("dd/M/yyyy")
+        val currentDate = sdf.format(Date())
+
+        // Get Current Time
+        val sdf2 = SimpleDateFormat("hh:mm:ss a")
+        val currentTime = sdf2.format(Date())
+
         // Save the data to the Database
         // Pass all the parameters to store into the database
         val saveToComplaintReportDatabase = lodgereportmodel(
@@ -337,8 +346,10 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             editTextComplaintNotes.text.toString(),
             textViewDisplayLocation.text.toString(),
             mTempCategory,
-            "new",
+            "pending",
             reportid,
+            currentDate,
+            currentTime,
             ""
         )
         mLodgeReportDatabaseReference.child(reportid).setValue(saveToComplaintReportDatabase)
