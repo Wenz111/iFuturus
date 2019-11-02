@@ -12,12 +12,13 @@ public class lodgereportmodel {
     private String complaintLocation;
     private String complaintCategory;
     private String complaintStatus;
+    private  String complaintId;
     private String photoUrl;
 
     public lodgereportmodel() {
     }
 
-    public lodgereportmodel(String id, String name, String email, String gender, String complaintDetails, String complaintNotes, String complaintLocation, String complaintCategory, String complaintStatus, String photoUrl) {
+    public lodgereportmodel(String id, String name, String email, String gender, String complaintDetails, String complaintNotes, String complaintLocation, String complaintCategory, String complaintStatus, String complaintId, String photoUrl) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -27,6 +28,7 @@ public class lodgereportmodel {
         this.complaintLocation = complaintLocation;
         this.complaintCategory = complaintCategory;
         this.complaintStatus = complaintStatus;
+        this.complaintId = complaintId;
         this.photoUrl = photoUrl;
     }
 
@@ -100,6 +102,14 @@ public class lodgereportmodel {
 
     public void setComplaintStatus(String complaintStatus) {
         this.complaintStatus = complaintStatus;
+    }
+
+    public String getComplaintId() {
+        return complaintId;
+    }
+
+    public void setComplaintId(String complaintId) {
+        this.complaintId = complaintId;
     }
 
     public String getPhotoUrl() {

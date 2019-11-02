@@ -323,7 +323,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
 
         for (index in 0 until chipGroup2.childCount) {
             val chip:Chip = chipGroup2.getChildAt(index) as Chip
-            mTempCategory += "${chip.text.toString()} "
+            mTempCategory += "${chip.text} "
         }
 
         // Save the data to the Database
@@ -338,6 +338,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             textViewDisplayLocation.text.toString(),
             mTempCategory,
             "new",
+            reportid,
             ""
         )
         mLodgeReportDatabaseReference.child(reportid).setValue(saveToComplaintReportDatabase)

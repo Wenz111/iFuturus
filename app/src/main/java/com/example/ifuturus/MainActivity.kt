@@ -154,6 +154,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, LodgeReportActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_report_status -> {
+                Toast.makeText(this, "Report Status", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ReportStatusActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_chat -> {
                 Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show()
             }
