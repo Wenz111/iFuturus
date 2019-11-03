@@ -15,8 +15,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.*
-import org.w3c.dom.Text
 
 class ReportStatusActivity : AppCompatActivity() {
 
@@ -83,6 +81,9 @@ class ReportStatusActivity : AppCompatActivity() {
                         // Test On Click Listener
                         holder.ivReportimage.setOnClickListener {
                             Toast.makeText(this@ReportStatusActivity, "Picture is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
+/*                            val intent = Intent(this@ReportStatusActivity, ChatReportActivity::class.java)
+                            intent.putExtra("reportid", model.complaintId)
+                            startActivity(intent)*/
                         }
                     }
                 })

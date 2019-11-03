@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatReportHistoryActivity"
+    android:background="#ced7db">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatHistoryRecyclerView"
+        android:layout_above="@+id/chatHistoryTextContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/chatHistoryTextContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:weightSum="10"
+        android:background="#f5f5f5">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/chatHistoryWrapper"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/chatHistoryEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text to send..."/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chatHistorySendButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            app:cornerRadius="50dp"
+            android:text="Send" />
+
+    </LinearLayout>
+
+</RelativeLayout>

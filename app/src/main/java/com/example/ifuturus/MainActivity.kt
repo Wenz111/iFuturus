@@ -161,6 +161,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_chat -> {
                 Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ChatReportListActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_settings -> {
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()

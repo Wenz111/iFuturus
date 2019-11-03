@@ -124,7 +124,6 @@ class UserProfileActivity : AppCompatActivity(), View.OnClickListener {
                     Glide.with(applicationContext).load(user?.photoUrl).into(userImage)
                 }
             }
-
         })
     }
 
