@@ -16,11 +16,13 @@ public class lodgereportmodel {
     private String complaintDate;
     private String complaintTime;
     private String photoUrl;
+    private String latitude;
+    private String longitude;
 
     public lodgereportmodel() {
     }
 
-    public lodgereportmodel(String id, String name, String email, String gender, String complaintDetails, String complaintNotes, String complaintLocation, String complaintCategory, String complaintStatus, String complaintId, String complaintDate, String complaintTime, String photoUrl) {
+    public lodgereportmodel(String id, String name, String email, String gender, String complaintDetails, String complaintNotes, String complaintLocation, String complaintCategory, String complaintStatus, String complaintId, String complaintDate, String complaintTime, String photoUrl, String latitude, String longitude) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,6 +36,8 @@ public class lodgereportmodel {
         this.complaintDate = complaintDate;
         this.complaintTime = complaintTime;
         this.photoUrl = photoUrl;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -138,5 +142,21 @@ public class lodgereportmodel {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

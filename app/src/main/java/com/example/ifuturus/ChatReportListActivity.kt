@@ -76,7 +76,7 @@ class ChatReportListActivity : AppCompatActivity() {
 class ReportItem(val chatReportList: lodgereportmodel): Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         // Will be Called in our list for each Report Object
-        viewHolder.itemView.tv_chatReportId.text = "Report ID: \n${chatReportList.complaintId}\n\n\nClick to start chatting"
+        viewHolder.itemView.tv_chatReportId.text = "Report ID: \n${chatReportList.complaintId}\n\n\nClick to start chatting >>"
         Picasso.get().load(chatReportList.photoUrl).into(viewHolder.itemView.iv_chatReportImage)
     }
 

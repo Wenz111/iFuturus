@@ -80,6 +80,10 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
     // Hold Unique Report ID
     private val reportid = UUID.randomUUID().toString()
 
+    // Hold temporary latitude and longitude
+    private var latitude : String? = null
+    private var longitude : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lodge_report)
@@ -301,6 +305,10 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
 
                     addresses = geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
+                    // Store longitude and longitude into the temporary variable
+                    latitude = location.latitude.toString()
+                    longitude = location.longitude.toString()
+
                     // Display Location Address
                     textViewDisplayLocation.setText("Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
                     textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
@@ -350,7 +358,9 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             reportid,
             currentDate,
             currentTime,
-            ""
+            "",
+            latitude,
+            longitude
         )
         mLodgeReportDatabaseReference.child(reportid).setValue(saveToComplaintReportDatabase)
     }
