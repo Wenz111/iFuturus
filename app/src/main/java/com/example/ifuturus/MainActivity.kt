@@ -1,11 +1,7 @@
 package com.example.ifuturus
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Intent
-import android.os.Build.VERSION_CODES.N
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -19,7 +15,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
-import com.example.ifuturus.model.lodgereportmodel
 import com.example.ifuturus.model.userprofilemodel
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -132,6 +126,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 signOut()
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
+        }
+        // If user click on profile picture, Launch User Profile Activity
+        val mUserImageClick = hView.findViewById<CircleImageView>(R.id.userImageNavHeader)
+        mUserImageClick.setOnClickListener {
+            startActivity(Intent(applicationContext, UserProfileActivity::class.java))
         }
 
 /*        // Display notification if report status changes
