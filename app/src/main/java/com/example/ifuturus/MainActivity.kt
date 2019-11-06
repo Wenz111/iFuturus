@@ -1,7 +1,11 @@
 package com.example.ifuturus
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build.VERSION_CODES.N
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -15,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
+import com.example.ifuturus.model.lodgereportmodel
 import com.example.ifuturus.model.userprofilemodel
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
@@ -128,6 +133,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
         }
+
+/*        // Display notification if report status changes
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val ref = firebaseDatabase.getReference()
+        ref.child("lodgereport").addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                // Handle Error
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                val children = p0.children
+
+                children.forEach{
+                    val childrenDetails = it.getValue(lodgereportmodel::class.java)
+
+                    if (childrenDetails != null) {
+                        Log.d("Report ID", "${childrenDetails.complaintId}")
+                        Log.d("Children Value", "${childrenDetails.complaintStatus}")
+
+                        // If childrenDetails Status = complete
+                        // Then display complete notification
+                    }
+                }
+            }
+        })*/
     }
 
     // Sign Out Function

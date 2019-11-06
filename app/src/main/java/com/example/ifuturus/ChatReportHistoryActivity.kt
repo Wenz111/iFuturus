@@ -121,6 +121,12 @@ class ChatReportHistoryActivity : AppCompatActivity() {
         // Get Text from Edit Text
         val sendChatSendMessage = chatHistoryEditText.text.toString()
 
+        Log.d("Chat Activity", "Inside Chat Message: $sendChatSendMessage")
+        // If text is empty return
+        if (sendChatSendMessage == "") {
+            return
+        }
+
         // Data to be saved to the database
         val timestamp: Long = System.currentTimeMillis()
 
@@ -148,7 +154,12 @@ class ChatFromItem(val chatMessage: String, val chatUserImage: String): Item<Vie
         // Load user image into the Circular Image View
         val targetUrl = chatUserImage
         val targetUserImage = viewHolder.itemView.chatHistoryFromUserImage
-        Picasso.get().load(targetUrl).into(targetUserImage)
+
+        if (targetUrl == "default") {
+            Picasso.get().load(R.drawable.pikademo).into(targetUserImage)
+        } else {
+            Picasso.get().load(targetUrl).into(targetUserImage)
+        }
     }
 
     override fun getLayout(): Int {
@@ -163,7 +174,12 @@ class ChatToItem(val chatMessage: String, val chatUserImage: String): Item<ViewH
         // Load user image into the Circular Image View
         val url = chatUserImage
         val userImage = viewHolder.itemView.chatHistoryToUserImage
-        Picasso.get().load(url).into(userImage)
+
+        if (url == "default") {
+            Picasso.get().load(R.drawable.pikademo).into(userImage)
+        } else {
+            Picasso.get().load(url).into(userImage)
+        }
     }
 
     override fun getLayout(): Int {

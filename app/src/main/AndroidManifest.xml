@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".ChatReportHistoryActivity"
             android:parentActivityName=".MainActivity"
@@ -36,7 +37,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".ChatReportActivity" />
         <activity
             android:name=".ReportStatusActivity"
             android:label="Report Status"
