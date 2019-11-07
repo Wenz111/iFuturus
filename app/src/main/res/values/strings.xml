@@ -55,5 +55,24 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="menu_report_status">View All Report</string>
+    <string name="aboutusdetails">
+        This mobile application is built to allow the user
+        to easily lodge and tracked a complaint report with
+        the focus on a great User Interface and User Experience.
+    </string>
+    <string name="privacy_policy_text">
+        Information We Collect\nWe
+        collect information about you to provide our services.
+        In order for us to best provide our services to you (and to help make
+        it feasible for us to do so), it is essential that we are able to collect
+        and use the information as described in this Policy.</string>
+    <string name="faq_details">
+        What personal data is shared is determined by the Privacy
+        and Cookie Policies of the Sites you use.\n
+        The personal data shared depends on your interaction with the Sites
+        in the course of your lodge report and application activities.
+        It may include your name, user name, email address,
+        and session activity on the Sites.
+    </string>
 
 </resources>

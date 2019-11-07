@@ -50,10 +50,22 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-<style name="DashBoardTextFontStyle">
+
+    <style name="DashBoardTextFontStyle">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AboutUsTitleFontStyle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AboutUsTextFontStyle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>

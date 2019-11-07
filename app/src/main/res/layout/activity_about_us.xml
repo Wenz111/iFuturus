@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutUsActivity"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <ImageView
+        android:id="@+id/iv_aboutUsLogo"
+        android:layout_width="205dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_aboutUs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_privacyPolicyDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="9dp"
+        android:text="@string/privacy_policy_text"
+        app:layout_constraintBottom_toTopOf="@+id/tv_faq_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_privacyPolicy" />
+
+    <TextView
+        android:id="@+id/tv_aboutUsDetails"
+        style="@style/AboutUsTextFontStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/aboutusdetails"
+        app:layout_constraintBottom_toTopOf="@+id/tv_privacyPolicy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_aboutUs" />
+
+    <TextView
+        android:id="@+id/tv_privacyPolicy"
+        style="@style/AboutUsTitleFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="1dp"
+        android:text="Privacy Policy"
+        app:layout_constraintBottom_toTopOf="@+id/tv_privacyPolicyDetails"
+        app:layout_constraintStart_toStartOf="@+id/tv_privacyPolicyDetails"
+        app:layout_constraintTop_toBottomOf="@+id/tv_aboutUsDetails" />
+
+    <TextView
+        android:id="@+id/tv_faq_title"
+        style="@style/AboutUsTitleFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="3dp"
+        android:text="Frequently Asked Questions"
+        app:layout_constraintBottom_toTopOf="@+id/tv_faq_content"
+        app:layout_constraintStart_toStartOf="@+id/tv_faq_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_privacyPolicyDetails" />
+
+    <TextView
+        android:id="@+id/tv_faq_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="39dp"
+        android:text="@string/faq_details"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_faq_title" />
+
+    <TextView
+        android:id="@+id/tv_aboutUs"
+        style="@style/AboutUsTitleFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="About Us"
+        app:layout_constraintBottom_toTopOf="@+id/tv_aboutUsDetails"
+        app:layout_constraintStart_toStartOf="@+id/tv_aboutUsDetails"
+        app:layout_constraintTop_toBottomOf="@+id/iv_aboutUsLogo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

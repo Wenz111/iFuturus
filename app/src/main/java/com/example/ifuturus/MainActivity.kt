@@ -205,6 +205,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_aboutus -> {
                 Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, AboutUsActivity::class.java)
+                startActivity(intent)
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
