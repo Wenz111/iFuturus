@@ -172,15 +172,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (menuItem.itemId) {
             R.id.nav_home -> {
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, DashBoardActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_profile -> {
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserProfileActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_report-> {
+            R.id.nav_report -> {
                 Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, LodgeReportActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_edit_report -> {
+                Toast.makeText(this, "Edit Report", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MySubmittedReportActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_report_status -> {

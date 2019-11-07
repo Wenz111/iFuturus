@@ -45,4 +45,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="DashBoardFontStyle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+<style name="DashBoardTextFontStyle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

@@ -78,8 +78,8 @@ class ReportStatusActivity : AppCompatActivity() {
                         holder.tvReportDateTime.setText("Report Submitted On: ${model.complaintDate}, ${model.complaintTime}")
 
                         // Test On Click Listener
-                        holder.ivReportimage.setOnClickListener {
-                            Toast.makeText(this@ReportStatusActivity, "Picture is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
+                        holder.itemView.setOnClickListener {
+                            Toast.makeText(this@ReportStatusActivity, "Item View is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
 /*                            val intent = Intent(this@ReportStatusActivity, ChatReportActivity::class.java)
                             intent.putExtra("reportid", model.complaintId)
                             startActivity(intent)*/

@@ -19,7 +19,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".MySubmittedReportActivity"
+            android:label="My Submitted Report"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".UpdateComplaintReportActivity"
+            android:label="Edit Report"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".DashBoardActivity"
+            android:label="DashBoard"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".ChatReportHistoryActivity"
             android:parentActivityName=".MainActivity"
@@ -39,7 +65,7 @@
         </activity>
         <activity
             android:name=".ReportStatusActivity"
-            android:label="Report Status"
+            android:label="View All Report"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">
             <meta-data

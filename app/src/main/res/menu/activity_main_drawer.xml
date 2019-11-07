@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_report_test_24dp"
             android:title="@string/menu_report" />
         <item
+            android:id="@+id/nav_edit_report"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="@string/menu_update_report" />
+        <item
             android:id="@+id/nav_report_status"
             android:icon="@drawable/ic_report_status_black_24dp"
             android:title="@string/menu_report_status" />

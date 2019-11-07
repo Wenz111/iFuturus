@@ -47,7 +47,7 @@ class ChatReportHistoryActivity : AppCompatActivity() {
         reportID = intent.getStringExtra(ChatReportListActivity.REPORT_ID_KEY)
         supportActionBar?.title = "Chat Report ID: $reportID"
 
-    // Database User Profile Reference
+        // Database User Profile Reference
         referenceUserProfile = FirebaseDatabase.getInstance().getReference("userprofile").child(mFirebaseUser!!.uid)
 
 
@@ -97,7 +97,6 @@ class ChatReportHistoryActivity : AppCompatActivity() {
                     } else {
                         adapter.add(ChatFromItem(chatMessage.chatmessage, chatMessage.photoUrl))
                     }
-
 
                 }
             }

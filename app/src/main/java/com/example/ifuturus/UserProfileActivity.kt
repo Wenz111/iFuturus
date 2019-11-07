@@ -2,7 +2,6 @@ package com.example.ifuturus
 
 import android.Manifest
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.BitmapDrawable
@@ -10,27 +9,19 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.ifuturus.model.userprofilemodel
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.Task
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.util.*
 import java.util.regex.Pattern

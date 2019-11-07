@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    tools:context=".DashBoardActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Welcome To DashBoard!"
+        style="@style/DashBoardFontStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView1"
+        android:layout_width="190dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#fffde7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewCategory1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/potholes" />
+
+            <TextView
+                android:id="@+id/textViewCategory1"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category: Potholes" />
+
+            <TextView
+                android:id="@+id/textViewCategory1Count"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Count" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="190dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#fffde7"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView1"
+        app:layout_constraintTop_toBottomOf="@+id/divider7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewCategory2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/trafficlight" />
+
+            <TextView
+                android:id="@+id/textViewCategory2"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category: Traffic Light/Light" />
+
+            <TextView
+                android:id="@+id/textViewCategory2Count"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Count" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView3"
+        android:layout_width="190dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#fffde7"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewCategory3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/building" />
+
+            <TextView
+                android:id="@+id/textViewCategory3"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Category: Parking/Building" />
+
+            <TextView
+                android:id="@+id/textViewCategory3Count"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Count" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView4"
+        android:layout_width="190dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#fffde7"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView3"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewCategory4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/garbage" />
+
+            <TextView
+                android:id="@+id/textViewCategory4"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Category: Garbage" />
+
+            <TextView
+                android:id="@+id/textViewCategory4Count"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Count" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView5"
+        android:layout_width="190dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#fffde7"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewCategory5"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/tree" />
+
+            <TextView
+                android:id="@+id/textViewCategory5"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Category: Plants/Grass" />
+
+            <TextView
+                android:id="@+id/textViewCategory5Count"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Count" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView6"
+        android:layout_width="190dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#fffde7"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView5"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewCategory6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/furniture" />
+
+            <TextView
+                android:id="@+id/textViewCategory6"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Category: Furniture" />
+
+            <TextView
+                android:id="@+id/textViewCategory6Count"
+                style="@style/DashBoardTextFontStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Count" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
