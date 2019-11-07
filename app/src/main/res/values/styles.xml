@@ -23,6 +23,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <!--To display Splash Screen-->
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
 
     <style name="error" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorCancelRipple</item>
@@ -66,6 +70,12 @@
     <style name="AboutUsTextFontStyle">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MainContentTitleFontStyle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

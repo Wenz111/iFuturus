@@ -76,5 +76,7 @@
         and session activity on the Sites.
     </string>
     <string name="resend_email_verification">Resend Email Verification</string>
+    <string name="welcome_to_ifuturus">Welcome To iFuturus</string>
+    <string name="launcher_icon">Launcher Icon</string>
 
 </resources>

@@ -4,7 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorDarkBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        style="@style/MainContentTitleFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="73dp"
+        android:text="@string/welcome_to_ifuturus"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/iv_content_main_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_content_main_logo"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="183dp"
+        android:contentDescription="@string/launcher_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome"
+        app:srcCompat="@drawable/ic_launcher" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
