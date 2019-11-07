@@ -96,7 +96,7 @@ class MySubmittedReportActivity : AppCompatActivity() {
 
                             // Test On Click Listener
                             holder.itemView.setOnClickListener {
-                                Toast.makeText(this@MySubmittedReportActivity, "Item View is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
+                                //Toast.makeText(this@MySubmittedReportActivity, "Item View is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
                                 val intent = Intent(this@MySubmittedReportActivity, UpdateComplaintReportActivity::class.java)
                                 intent.putExtra(MY_REPORT_ID_KEY, model.complaintId)
                                 startActivity(intent)

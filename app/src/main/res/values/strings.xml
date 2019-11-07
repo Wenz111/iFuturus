@@ -7,9 +7,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">DashBoard</string>
+    <string name="menu_home">Dashboard</string>
     <string name="menu_profile">Profile</string>
-    <string name="menu_report">Lodge Report</string>
+    <string name="menu_report">Lodge Complaint Report</string>
     <string name="menu_update_report">My Submitted Report</string>
     <string name="menu_chat">Chat</string>
     <string name="menu_settings">Settings</string>

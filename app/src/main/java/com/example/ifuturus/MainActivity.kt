@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.nav_home -> {
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Dashboard", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, DashBoardActivity::class.java)
                 startActivity(intent)
             }
@@ -181,17 +181,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.nav_report -> {
-                Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Lodge Complaint Report", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, LodgeReportActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_edit_report -> {
-                Toast.makeText(this, "Edit Report", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "My Submitted Report", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MySubmittedReportActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_report_status -> {
-                Toast.makeText(this, "Report Status", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "View All Report", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ReportStatusActivity::class.java)
                 startActivity(intent)
             }

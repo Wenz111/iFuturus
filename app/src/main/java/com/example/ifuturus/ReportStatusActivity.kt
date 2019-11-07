@@ -77,13 +77,13 @@ class ReportStatusActivity : AppCompatActivity() {
                         holder.tvReportSubmittedBy.setText("Report Submitted By: ${model.name}")
                         holder.tvReportDateTime.setText("Report Submitted On: ${model.complaintDate}, ${model.complaintTime}")
 
-                        // Test On Click Listener
+/*                        // Test On Click Listener
                         holder.itemView.setOnClickListener {
                             Toast.makeText(this@ReportStatusActivity, "Item View is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
-/*                            val intent = Intent(this@ReportStatusActivity, ChatReportActivity::class.java)
+*//*                            val intent = Intent(this@ReportStatusActivity, ChatReportActivity::class.java)
                             intent.putExtra("reportid", model.complaintId)
-                            startActivity(intent)*/
-                        }
+                            startActivity(intent)*//*
+                        }*/
                     }
                 })
             }
