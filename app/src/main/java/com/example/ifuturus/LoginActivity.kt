@@ -15,6 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -74,6 +76,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<View>(R.id.button_login).setOnClickListener(this)
         findViewById<View>(R.id.button_sign_up).setOnClickListener(this)
         findViewById<View>(R.id.button_cancel).setOnClickListener(this)
+        button_email_verification.setOnClickListener(this)
 
         // Assign Text Input Layout to XML Layout
         mtextInputLayout_Username = findViewById(R.id.textInputLayout_Username)
@@ -93,7 +96,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         // Perform Login Intent
-                mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+/*                mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
                     Toast.makeText(this@LoginActivity, resources.getString(R.string.login_successful),
@@ -104,8 +107,28 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     // If sign in fails, display error message to the user
                     Toast.makeText(this@LoginActivity, resources.getString(R.string.invalid_login_credentials),
                         Toast.LENGTH_SHORT).show()
-                        }
-        }
+                }
+        }*/
+
+        // Perform Login Intent with Email Validation
+        mFirebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(OnCompleteListener {
+                if(it.isSuccessful) {
+                    if (mFirebaseAuth.currentUser!!.isEmailVerified) {
+                        // Sign in success
+                        Toast.makeText(this@LoginActivity, resources.getString(R.string.login_successful),
+                            Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Please Verify your email address before you are allowed to use this application", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    // If sign in fails, display error message to the user
+                    Toast.makeText(this@LoginActivity, resources.getString(R.string.invalid_login_credentials),
+                        Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     // Do validation on Login Credentials
@@ -230,11 +253,36 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         FirebaseAuth.getInstance().signOut()
     }
 
+    private fun sendEmailVerification() {
+        // Check username + password Input
+        val email = mUsername_login_input.text.toString()
+        val password = mPassword_login_input.text.toString()
+
+        // Validation on username + password Input
+        if (!validateForm()) {
+            return
+        }
+
+        mFirebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(OnCompleteListener {
+                if(it.isSuccessful) {
+                    if (!(mFirebaseAuth.currentUser!!.isEmailVerified)) {
+                        mFirebaseAuth.currentUser!!.sendEmailVerification()
+                        Toast.makeText(this@LoginActivity, "Email Verification Send, Please Verify your Email", Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
+    }
+
     override fun onClick(v: View) {
         val i = v.id
         when (i) {
             R.id.btnGoogleSignIn -> {
                 signIn()
+            }
+            R.id.button_email_verification -> {
+                // Send Email Verification
+                sendEmailVerification()
             }
             R.id.button_login -> {
                 loginFuntion()

@@ -41,7 +41,8 @@
     <string name="required">Required</string>
     <string name="password_not_match">Password does not match</string>
     <string name="invalid_email_format">Invalid Email Address Format</string>
-    <string name="account_create_successful">Account has successfully been created!</string>
+    <string name="account_create_successful">Account has successfully been created</string>
+    <string name="account_create_successful_please_verify">Account has successfully been created, Please Verify your Email to proceed!</string>
     <string name="login_successful">Login Successfully!</string>
     <string name="email_already_registered">This email has already been registered with iFuturus!</string>
     <string name="account_cannot_create">Account cannot be created!</string>
@@ -74,5 +75,6 @@
         It may include your name, user name, email address,
         and session activity on the Sites.
     </string>
+    <string name="resend_email_verification">Resend Email Verification</string>
 
 </resources>

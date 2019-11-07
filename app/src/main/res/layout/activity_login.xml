@@ -126,11 +126,20 @@
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/button_sign_up"
+        app:layout_constraintStart_toEndOf="@+id/button_sign_up"
+        app:layout_constraintTop_toBottomOf="@+id/button_cancel" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_email_verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="#455a64"
+        android:text="@string/resend_email_verification"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sign_up" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

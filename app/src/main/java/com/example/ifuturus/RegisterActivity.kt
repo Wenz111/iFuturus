@@ -123,11 +123,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         reference.setValue(hashMap).addOnCompleteListener { task ->
             // Successfully Sign Up
             if (task.isSuccessful) {
-                Toast.makeText(this@RegisterActivity, resources.getString(R.string.account_create_successful),
-                    Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@RegisterActivity, resources.getString(R.string.login_successful),
-                    Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                user.sendEmailVerification()
+                Toast.makeText(this@RegisterActivity, resources.getString(R.string.account_create_successful_please_verify),
+                    Toast.LENGTH_LONG).show()
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
