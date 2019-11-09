@@ -1,111 +1,133 @@
 package com.example.ifuturus
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ifuturus.adapter.viewallreportadapter
 import com.example.ifuturus.model.lodgereportmodel
-import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_report_status.*
 
-class ReportStatusActivity : AppCompatActivity() {
+class ReportStatusActivity : AppCompatActivity(), View.OnClickListener {
 
     // Get Reference to the Database
-    lateinit var ref: DatabaseReference
+    lateinit var reference: DatabaseReference
 
     // Initialize variables
     lateinit var mrecylerview : RecyclerView
+
+    // Store Firebase Database data to an Array List
+    lateinit var viewAllReportList : ArrayList<lodgereportmodel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report_status)
 
         // Get Reference to the Database
-        ref = FirebaseDatabase.getInstance().getReference().child("lodgereport")
+        reference = FirebaseDatabase.getInstance().reference.child("lodgereport")
 
         // Assign variable
         mrecylerview = findViewById(R.id.reyclerview)
         mrecylerview.setHasFixedSize(true)
         mrecylerview.layoutManager = LinearLayoutManager(this)
 
-        firebaseData()
+        // Set On Click Listener
+        all_report_chip_default.setOnClickListener(this)
+        all_report_chip_pending.setOnClickListener(this)
+        all_report_chip_processing.setOnClickListener(this)
+        all_report_chip_completed.setOnClickListener(this)
+        all_report_chip_private.setOnClickListener(this)
+        all_report_chip_public.setOnClickListener(this)
+
+        displayAllReport()
     }
 
-    private fun firebaseData() {
-        val option = FirebaseRecyclerOptions.Builder<lodgereportmodel>()
-            .setQuery(ref, lodgereportmodel::class.java)
-            .setLifecycleOwner(this)
-            .build()
+    private fun displayAllReport() {
+        // Store value to Array List
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()) {
+                    viewAllReportList = ArrayList()
 
+                    for(ds in p0.children) {
 
-        val firebaseRecyclerAdapter = object: FirebaseRecyclerAdapter<lodgereportmodel, MyViewHolder>(option) {
-
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-                val itemView = LayoutInflater.from(this@ReportStatusActivity).inflate(R.layout.activity_lodge_report_status_details,parent,false)
-                return MyViewHolder(itemView)
-            }
-
-            override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: lodgereportmodel) {
-                val reportId = getRef(position).key.toString()
-
-                Log.d("ReportStatusActivity-firebaseData Function", "Report ID: $reportId")
-
-                ref.child(reportId).addValueEventListener(object: ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError) {
-                        Toast.makeText(this@ReportStatusActivity, "Error Occurred "+ p0.toException(), Toast.LENGTH_SHORT).show()
-
-                    }
-
-                    override fun onDataChange(p0: DataSnapshot) {
-
-                        // Set Value into each view of recycler view
-                        holder.tvReportid.setText("Report ID: ${model.complaintId}")
-                        Picasso.get().load(model.photoUrl).into(holder.ivReportimage)
-                        holder.tvReportPropertyType.setText("Property Type: ${model.complaintDetails}")
-                        holder.tvReportStatus.setText("Report Status: ${model.complaintStatus}")
-                        holder.tvReportNotes.setText("Report Notes: \n${model.complaintNotes}")
-                        holder.tvReportCategory.setText("Report Category: \n${model.complaintCategory}")
-                        holder.tvReportLocation.setText("Report Location: \n${model.complaintLocation}")
-                        holder.tvReportSubmittedBy.setText("Report Submitted By: ${model.name}")
-                        holder.tvReportDateTime.setText("Report Submitted On: ${model.complaintDate}, ${model.complaintTime}")
-
-                        holder.mybuttonEditReport.visibility = View.GONE
-                        holder.mybuttonViewChat.width = 0
-                        holder.mybuttonViewChat.setOnClickListener {
-                            // Start Chat Activity
-                            val intent = Intent(it.context, ChatReportHistoryActivity::class.java)
-                            intent.putExtra(ChatReportListActivity.REPORT_ID_KEY, model.complaintId)
-                            it.context.startActivity(intent)
+                        if (all_report_chip_default.isChecked && all_report_chip_private.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "private") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_default.isChecked && all_report_chip_public.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "public") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_pending.isChecked && all_report_chip_private.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "private" &&
+                                ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "pending") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_pending.isChecked && all_report_chip_public.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "public" &&
+                                ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "pending") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_processing.isChecked && all_report_chip_private.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "private" &&
+                                ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "processing") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_processing.isChecked && all_report_chip_public.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "public" &&
+                                ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "processing") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_completed.isChecked && all_report_chip_private.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "private" &&
+                                ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "completed") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_completed.isChecked && all_report_chip_public.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintDetails == "public" &&
+                                ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "completed") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_default.isChecked) {
+                            viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                        } else if (all_report_chip_pending.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "pending") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_processing.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "processing") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else if (all_report_chip_completed.isChecked) {
+                            if (ds.getValue(lodgereportmodel::class.java)!!.complaintStatus == "completed") {
+                                viewAllReportList.add(ds.getValue(lodgereportmodel::class.java)!!)
+                            }
+                        } else {
+                            mrecylerview.adapter = null
                         }
                     }
-                })
+                    val viewAllReportAdapter = viewallreportadapter(viewAllReportList)
+                    mrecylerview.adapter = viewAllReportAdapter
+                }
             }
-        }
-        mrecylerview.adapter = firebaseRecyclerAdapter
-        firebaseRecyclerAdapter.startListening()
+
+            override fun onCancelled(p0: DatabaseError) {
+                // Handle Error
+            }
+        })
     }
 
-    class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        internal var ivReportimage: ImageView = itemView!!.findViewById(R.id.iv_report_image)
-        internal var tvReportid: TextView = itemView!!.findViewById(R.id.tv_report_id)
-        internal var tvReportPropertyType: TextView = itemView!!.findViewById(R.id.tv_property_type)
-        internal var tvReportStatus: TextView = itemView!!.findViewById(R.id.tv_report_status)
-        internal var tvReportNotes: TextView = itemView!!.findViewById(R.id.tv_report_notes)
-        internal var tvReportCategory: TextView = itemView!!.findViewById(R.id.tv_report_category)
-        internal var tvReportLocation: TextView = itemView!!.findViewById(R.id.tv_report_location)
-        internal var tvReportSubmittedBy: TextView = itemView!!.findViewById(R.id.tv_report_submitted_by)
-        internal var tvReportDateTime: TextView = itemView!!.findViewById(R.id.tv_report_datetime)
-        internal var mybuttonViewChat: MaterialButton = itemView!!.findViewById(R.id.button_report_chat)
-        internal var mybuttonEditReport: MaterialButton = itemView!!.findViewById(R.id.button_report_edit)
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.all_report_chip_default -> displayAllReport()
+            R.id.all_report_chip_pending -> displayAllReport()
+            R.id.all_report_chip_processing -> displayAllReport()
+            R.id.all_report_chip_completed -> displayAllReport()
+            R.id.all_report_chip_private -> displayAllReport()
+            R.id.all_report_chip_public -> displayAllReport()
+        }
     }
 }
