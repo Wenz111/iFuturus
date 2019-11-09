@@ -78,15 +78,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<View>(R.id.button_sign_up).setOnClickListener(this)
         findViewById<View>(R.id.button_cancel).setOnClickListener(this)
         button_email_verification.setOnClickListener(this)
+        checkBox_login_terms_of_service.setOnClickListener(this)
 
         // Assign Text Input Layout to XML Layout
         mtextInputLayout_Username = findViewById(R.id.textInputLayout_Username)
         mtextInputLayout2_Password = findViewById(R.id.textInputLayout2_Password)
 
         mFirebaseAuth = FirebaseAuth.getInstance()
+
+        // If the Terms and Conditions Checkbox is not Checked
+        acceptTermsAndConditions()
     }
 
-    private fun loginFuntion(){
+    private fun loginFunction(){
         // Check username + password Input
         val email = mUsername_login_input.text.toString()
         val password = mPassword_login_input.text.toString()
@@ -158,7 +162,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         // the user can try login again
                         // Show Toast and display the countdown timer
                         // Get Current Time
-                        val sdf = SimpleDateFormat("hh:mm:ss a")
+                        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss a")
                         val currentTime = sdf.format(Date())
 
                         val accessTime = Calendar.getInstance()
@@ -178,7 +182,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         val accessTimeLimitRemaining = loginTimeLimitPreference.getTimeLimit()
 
                         if (accessTimeLimitRemaining > currentTime) {
-                            Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before \nyou are able to retry and login again...",
+                            Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before you are able to retry and login again...",
                                 Toast.LENGTH_LONG).show()
                         } else {
                             loginTimeLimitPreference.setTimeLimit("")
@@ -332,6 +336,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             })
     }
 
+    // Accept the Terms and Conditions of iFuturus
+    private fun acceptTermsAndConditions() {
+        if (checkBox_login_terms_of_service.isChecked) {
+            button_login.isEnabled = true
+            btnGoogleSignIn.isEnabled = true
+        } else {
+            button_login.isEnabled = false
+            btnGoogleSignIn.isEnabled = false
+            Toast.makeText(this, "Please read and agree to the Terms \n and Conditions and Privacy Policy \n before you are allow to login.", Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onClick(v: View) {
         val i = v.id
         when (i) {
@@ -343,11 +359,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 sendEmailVerification()
             }
             R.id.button_login -> {
-                loginFuntion()
+                loginFunction()
             }
             R.id.button_sign_up -> {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
+            }
+            R.id.checkBox_login_terms_of_service -> {
+                acceptTermsAndConditions()
             }
             R.id.button_cancel -> {
                 // Perform Cancel Intent
