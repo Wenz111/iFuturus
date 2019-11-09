@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:id="@+id/menu_top" android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/ic_dashboard_black_24dp"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_profile"
@@ -21,6 +23,14 @@
             android:icon="@drawable/ic_edit_black_24dp"
             android:title="@string/menu_update_report" />
         <item
+            android:id="@+id/nav_track_report_status"
+            android:icon="@drawable/ic_track_report_status_black_24dp"
+            android:title="@string/track_report_status" />
+    </group>
+
+    <group android:id="@+id/menu_middle"
+        android:checkableBehavior="single">
+        <item
             android:id="@+id/nav_report_status"
             android:icon="@drawable/ic_report_status_black_24dp"
             android:title="@string/menu_report_status" />
@@ -28,6 +38,7 @@
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat_black_24dp"
             android:title="@string/menu_chat" />
+
     </group>
 
     <group android:id="@+id/menu_bottom"

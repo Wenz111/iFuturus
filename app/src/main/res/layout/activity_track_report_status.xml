@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TrackReportStatusActivity">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_track_report_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true"
+            android:clickable="true"
+            app:checkedChip="@+id/chip_default"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="Default"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_pending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="Pending"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_processing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="Processing"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="Completed" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/divider8"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/ChipGroup_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true"
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_private"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="Private"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="Public"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/divider9"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/ChipGroup_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true"
+            android:clickable="true"
+            app:checkedChip="@+id/chip_user"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="My Report Submission"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:clickable="true"
+                app:checkedIconEnabled="true"
+                android:text="All Report Submission"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/divider10"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_track_report_status"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"/>
+
+</LinearLayout>

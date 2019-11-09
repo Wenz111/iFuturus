@@ -193,6 +193,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, MySubmittedReportActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_track_report_status -> {
+                Toast.makeText(this, "Track Report Status", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, TrackReportStatusActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_report_status -> {
                 Toast.makeText(this, "View All Report", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ReportStatusActivity::class.java)
