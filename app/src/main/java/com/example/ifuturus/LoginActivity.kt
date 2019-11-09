@@ -10,21 +10,22 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.ifuturus.preferences.loginpreferences
+import com.example.ifuturus.preferences.logintimelimit
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.HashMap
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -115,18 +116,75 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             .addOnCompleteListener(OnCompleteListener {
                 if(it.isSuccessful) {
                     if (mFirebaseAuth.currentUser!!.isEmailVerified) {
-                        // Sign in success
-                        Toast.makeText(this@LoginActivity, resources.getString(R.string.login_successful),
-                            Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(applicationContext, MainActivity::class.java))
-                        finish()
+                        val loginPreference = loginpreferences(this)
+                        val loginCount = loginPreference.getLoginCount()
+
+                        if (loginCount > 0) {
+                            // Sign in success
+                            Toast.makeText(this@LoginActivity, resources.getString(R.string.login_successful),
+                                Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(applicationContext, MainActivity::class.java))
+                            finish()
+                        } else {
+                            val loginTimeLimitPreference = logintimelimit(this)
+                            val accessTimeLimitRemaining = loginTimeLimitPreference.getTimeLimit()
+                            val sdf = SimpleDateFormat("hh:mm:ss a")
+                            val currentTime = sdf.format(Date())
+
+                            Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before \nyou are able to retry and login again...",
+                                Toast.LENGTH_LONG).show()
+                            if (accessTimeLimitRemaining < currentTime) {
+                                loginTimeLimitPreference.setTimeLimit("")
+                                loginPreference.setLoginCount(5)
+                            }
+                        }
                     } else {
                         Toast.makeText(this@LoginActivity, "Please Verify your email address before you are allowed to use this application", Toast.LENGTH_LONG).show()
                     }
                 } else {
                     // If sign in fails, display error message to the user
-                    Toast.makeText(this@LoginActivity, resources.getString(R.string.invalid_login_credentials),
-                        Toast.LENGTH_SHORT).show()
+                    // If user login more than equal to 5 times then prevent user from logging in
+                    // to prevent unauthorised access
+                    // Create Login Preference Object
+                    val loginPreference = loginpreferences(this)
+                    var loginCount = loginPreference.getLoginCount()
+                    if (loginCount >= 1) {
+                        Toast.makeText(this@LoginActivity, resources.getString(R.string.invalid_login_credentials) + "\nYou have " + loginCount.toString() + " attempt left...",
+                            Toast.LENGTH_LONG).show()
+                        loginCount--
+                        loginPreference.setLoginCount(loginCount)
+                    } else {
+                        // Lock the user for 30 minutes before
+                        // the user can try login again
+                        // Show Toast and display the countdown timer
+                        // Get Current Time
+                        val sdf = SimpleDateFormat("hh:mm:ss a")
+                        val currentTime = sdf.format(Date())
+
+                        val accessTime = Calendar.getInstance()
+                        accessTime.add(Calendar.MINUTE, 30)
+                        val allowAccessTime = sdf.format(accessTime.time)
+
+                        val loginTimeLimitPreference = logintimelimit(this)
+                        val getTimeLimit = loginTimeLimitPreference.getTimeLimit()
+
+                        Log.d("Get Time Limit", getTimeLimit)
+
+                        if (getTimeLimit.isNullOrBlank()) {
+                            Log.d("Time Limit", allowAccessTime)
+                            loginTimeLimitPreference.setTimeLimit(allowAccessTime)
+                        }
+
+                        val accessTimeLimitRemaining = loginTimeLimitPreference.getTimeLimit()
+
+                        if (accessTimeLimitRemaining > currentTime) {
+                            Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before \nyou are able to retry and login again...",
+                                Toast.LENGTH_LONG).show()
+                        } else {
+                            loginTimeLimitPreference.setTimeLimit("")
+                            loginPreference.setLoginCount(5)
+                        }
+                    }
                 }
             })
     }
