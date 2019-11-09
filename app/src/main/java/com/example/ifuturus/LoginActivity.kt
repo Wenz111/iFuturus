@@ -135,7 +135,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             val sdf = SimpleDateFormat("hh:mm:ss a")
                             val currentTime = sdf.format(Date())
 
-                            Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before \nyou are able to retry and login again...",
+                            Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before you are able to retry and login again...",
                                 Toast.LENGTH_LONG).show()
                             if (accessTimeLimitRemaining < currentTime) {
                                 loginTimeLimitPreference.setTimeLimit("")
