@@ -134,6 +134,29 @@
                 android:layout_height="wrap_content"
                 android:text="Report Submitted On" />
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_report_chat"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="2.5dp"
+                    android:text="View Chat" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_report_edit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="2.5dp"
+                    android:text="Edit Report" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

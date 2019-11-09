@@ -15,8 +15,10 @@
       <w>reportid</w>
       <w>reportimage</w>
       <w>sendnotification</w>
+      <w>trackreportadapter</w>
       <w>userfeedback</w>
       <w>userid</w>
+      <w>userreportadapter</w>
       <w>wenz</w>
     </words>
   </dictionary>

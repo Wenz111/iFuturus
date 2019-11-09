@@ -1,5 +1,6 @@
 package com.example.ifuturus
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ifuturus.model.lodgereportmodel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
@@ -38,7 +40,7 @@ class ReportStatusActivity : AppCompatActivity() {
         firebaseData()
     }
 
-    fun firebaseData() {
+    private fun firebaseData() {
         val option = FirebaseRecyclerOptions.Builder<lodgereportmodel>()
             .setQuery(ref, lodgereportmodel::class.java)
             .setLifecycleOwner(this)
@@ -77,13 +79,14 @@ class ReportStatusActivity : AppCompatActivity() {
                         holder.tvReportSubmittedBy.setText("Report Submitted By: ${model.name}")
                         holder.tvReportDateTime.setText("Report Submitted On: ${model.complaintDate}, ${model.complaintTime}")
 
-/*                        // Test On Click Listener
-                        holder.itemView.setOnClickListener {
-                            Toast.makeText(this@ReportStatusActivity, "Item View is Clicked: ${model.complaintId}", Toast.LENGTH_LONG).show()
-*//*                            val intent = Intent(this@ReportStatusActivity, ChatReportActivity::class.java)
-                            intent.putExtra("reportid", model.complaintId)
-                            startActivity(intent)*//*
-                        }*/
+                        holder.mybuttonEditReport.visibility = View.GONE
+                        holder.mybuttonViewChat.width = 0
+                        holder.mybuttonViewChat.setOnClickListener {
+                            // Start Chat Activity
+                            val intent = Intent(it.context, ChatReportHistoryActivity::class.java)
+                            intent.putExtra(ChatReportListActivity.REPORT_ID_KEY, model.complaintId)
+                            it.context.startActivity(intent)
+                        }
                     }
                 })
             }
@@ -102,5 +105,7 @@ class ReportStatusActivity : AppCompatActivity() {
         internal var tvReportLocation: TextView = itemView!!.findViewById(R.id.tv_report_location)
         internal var tvReportSubmittedBy: TextView = itemView!!.findViewById(R.id.tv_report_submitted_by)
         internal var tvReportDateTime: TextView = itemView!!.findViewById(R.id.tv_report_datetime)
+        internal var mybuttonViewChat: MaterialButton = itemView!!.findViewById(R.id.button_report_chat)
+        internal var mybuttonEditReport: MaterialButton = itemView!!.findViewById(R.id.button_report_edit)
     }
 }

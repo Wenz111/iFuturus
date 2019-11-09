@@ -14,7 +14,7 @@ class trackreportadapter(var reportList: ArrayList<lodgereportmodel>) :
     RecyclerView.Adapter<trackreportadapter.TrackReportViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackReportViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_track_report_status_details,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_track_report_status_details, parent,false)
         return TrackReportViewHolder(itemView)
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.ifuturus.adapter.userreportadapter
 import com.example.ifuturus.model.lodgereportmodel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -51,7 +52,7 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
         mFirebaseUser = mFirebaseAuth.currentUser
 
         // Retrieve Data From Intent
-        reportID = intent.getStringExtra(MySubmittedReportActivity.MY_REPORT_ID_KEY)
+        reportID = intent.getStringExtra(userreportadapter.MY_REPORT_ID_KEY)
         supportActionBar?.title = "Edit Report: $reportID"
 
         loadSubmittedReport()
