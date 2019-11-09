@@ -53,7 +53,7 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
 
         // Retrieve Data From Intent
         reportID = intent.getStringExtra(userreportadapter.MY_REPORT_ID_KEY)
-        supportActionBar?.title = "Edit Report: $reportID"
+        supportActionBar?.title = "Viewing Report ID: $reportID"
 
         loadSubmittedReport()
     }

@@ -45,6 +45,7 @@
                 android:id="@+id/myFeedbackEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
                 android:hint="Enter Your Feedback..."/>
 
         </com.google.android.material.textfield.TextInputLayout>

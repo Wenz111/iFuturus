@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/tv_track_report_status_report_id"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingBottom="3dp"
             android:text="Report ID"
@@ -61,7 +61,7 @@
                     style="@style/LodgeReportStatusFontStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:text="Property Type" />
@@ -89,6 +89,16 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_track_report_status_report_view_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-5dp"
+            android:text="View Report" />
 
     </LinearLayout>
 
