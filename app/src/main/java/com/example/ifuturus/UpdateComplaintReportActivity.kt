@@ -80,7 +80,7 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
 
                     // If the User Id is not equal to the report Complaint Id
                     // Then disable Edit Button
-                    if (reportDetails.id != mFirebaseUser!!.uid) {
+                    if (reportDetails.id != mFirebaseUser!!.uid || reportDetails.complaintStatus == "processing" || reportDetails.complaintStatus == "completed") {
                         edit_my_report.visibility = View.GONE
                     }
 
