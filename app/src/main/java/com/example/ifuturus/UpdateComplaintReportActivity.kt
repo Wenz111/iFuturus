@@ -78,6 +78,12 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
                     edit_tv_report_submitted_by.setText("Report Submitted By: ${reportDetails.name}")
                     edit_tv_report_datetime.setText("Report Submitted On: ${reportDetails.complaintDate}, ${reportDetails.complaintTime}")
 
+                    // If the User Id is not equal to the report Complaint Id
+                    // Then disable Edit Button
+                    if (reportDetails.id != mFirebaseUser!!.uid) {
+                        edit_my_report.visibility = View.GONE
+                    }
+
                     // Assign value to Temporary Variable
                     id = reportDetails.id
                     name = reportDetails.name
