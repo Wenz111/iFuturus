@@ -123,16 +123,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         val loginPreference = loginpreferences(this)
                         val loginCount = loginPreference.getLoginCount()
 
-                        if (loginCount > 0) {
+                        if (loginCount > 0 || loginCount == 0) {
                             // Sign in success
                             Toast.makeText(this@LoginActivity, resources.getString(R.string.login_successful),
                                 Toast.LENGTH_SHORT).show()
+                            val loginTimeLimitPreference = logintimelimit(this)
+                            loginTimeLimitPreference.setTimeLimit("")
+                            loginPreference.setLoginCount(5)
                             startActivity(Intent(applicationContext, MainActivity::class.java))
                             finish()
                         } else {
                             val loginTimeLimitPreference = logintimelimit(this)
                             val accessTimeLimitRemaining = loginTimeLimitPreference.getTimeLimit()
-                            val sdf = SimpleDateFormat("hh:mm:ss a")
+                            val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss a")
                             val currentTime = sdf.format(Date())
 
                             Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before you are able to retry and login again...",
@@ -162,7 +165,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         // the user can try login again
                         // Show Toast and display the countdown timer
                         // Get Current Time
-                        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss a")
+                        val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss a")
                         val currentTime = sdf.format(Date())
 
                         val accessTime = Calendar.getInstance()
