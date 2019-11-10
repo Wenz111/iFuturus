@@ -39,6 +39,12 @@ class userreportadapter(var userReportList: ArrayList<lodgereportmodel>) :
         holder.my_tvReportSubmittedBy.setText("Report Submitted By: ${userReportList[position].name}")
         holder.my_tvReportDateTime.setText("Report Submitted On: ${userReportList[position].complaintDate}, ${userReportList[position].complaintTime}")
 
+        // If Report Status is equal to Processing or Completed
+        // Show View Report instead of Edit Report
+        if (userReportList[position].complaintStatus == "processing" || userReportList[position].complaintStatus == "completed") {
+            holder.my_buttonEditReport.setText("View Report")
+        }
+
         // View Chat On Click Listener
         holder.my_buttonViewChat.setOnClickListener {
             // Start Chat Activity

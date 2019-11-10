@@ -144,7 +144,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
         imageView.visibility = View.VISIBLE
 
         // Change Add Image button to Change/Update Image
-        btnAddImageorVideo.setText("Change Image or Video")
+        btnAddImageorVideo.setText("Change Image")
     }
 
 /*    private fun addUploadRecordToDb(uri: String){
