@@ -29,7 +29,6 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
 import android.os.Build
-import android.location.LocationManager
 import com.example.ifuturus.model.userprofilemodel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -56,7 +55,10 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
     // Get Location
     lateinit var locationManager: LocationManager
     private var hasGps = false
+    private var hasNetwork = false
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var locationGps : Location? = null
+    private var locationNetwork : Location? = null
 
     // Handle storing and retrieving of key value pairs
     private lateinit var mUserProfileDatabaseReference: DatabaseReference
@@ -87,6 +89,9 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lodge_report)
+
+        // Request Permission
+        requestPermissions(permissions, PERMISSION_REQUEST)
 
         // Set value
         firebaseStore = FirebaseStorage.getInstance()
@@ -187,6 +192,14 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
                     val map = HashMap<String, Any>()
                     map["photoUrl"] = downloadUri.toString()
                     mLodgeReportDatabaseReference.updateChildren(map)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Successfully Submitted!", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Please try again with a stable internet connection", Toast.LENGTH_LONG).show()
+                        }
                 } else {
                     // Handle failures
                     Log.d("Upload Tasks", "Handle Failures")
@@ -287,7 +300,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // Get Location Function
+/*    // Get Location Function
     @SuppressLint("MissingPermission")
     private fun obtieneLocalizacion(){
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -317,6 +330,151 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
         }
 
+    }*/
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+        if (hasGps || hasNetwork) {
+
+            // Check for GPS
+            if (hasGps) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0F, object : LocationListener {
+                    override fun onLocationChanged(location: Location?) {
+                        if (location != null) {
+                            locationGps = location
+
+                            // Else get GPS Location
+                            // Change Button Text to Change Location
+                            btnChangeLocation.setText("Change Location")
+
+                            // Convert to Location Address
+                            val geocoder : Geocoder = Geocoder(this@LodgeReportActivity, Locale.getDefault())
+                            val addresses : List<Address>
+
+                            addresses = geocoder.getFromLocation(locationGps!!.latitude, locationGps!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                            // Store longitude and longitude into the temporary variable
+                            latitude = locationGps!!.latitude.toString()
+                            longitude = locationGps!!.longitude.toString()
+
+                            // Display Location Address
+                            textViewDisplayLocation.setText("Latitude: ${locationGps?.latitude}, Longitude: ${locationGps?.longitude}")
+                            textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
+                        }
+                    }
+
+                    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+                    }
+
+                    override fun onProviderEnabled(p0: String?) {
+                    }
+
+                    override fun onProviderDisabled(p0: String?) {
+                    }
+
+                })
+
+                val localGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                if (localGpsLocation != null) {
+                    locationGps = localGpsLocation
+                }
+            }
+
+            // Check for Network
+            if (hasNetwork) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0F, object : LocationListener {
+                    override fun onLocationChanged(location: Location?) {
+                        if (location != null) {
+                            locationNetwork = location
+
+                            // If Network is more accurate get Network Location
+                            // Change Button Text to Change Location
+                            btnChangeLocation.setText("Change Location")
+
+                            // Convert to Location Address
+                            val geocoder : Geocoder = Geocoder(this@LodgeReportActivity, Locale.getDefault())
+                            val addresses : List<Address>
+
+                            addresses = geocoder.getFromLocation(locationNetwork!!.latitude, locationNetwork!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                            // Store longitude and longitude into the temporary variable
+                            latitude = locationNetwork!!.latitude.toString()
+                            longitude = locationNetwork!!.longitude.toString()
+
+                            // Display Location Address
+                            textViewDisplayLocation.setText("Latitude: ${locationNetwork?.latitude}, Longitude: ${locationNetwork?.longitude}")
+                            textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
+                        }
+                    }
+
+                    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+                    }
+
+                    override fun onProviderEnabled(p0: String?) {
+                    }
+
+                    override fun onProviderDisabled(p0: String?) {
+                    }
+
+                })
+
+                val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                if (localNetworkLocation != null) {
+                    locationNetwork = localNetworkLocation
+                }
+            }
+
+            // Check both locationGPS and locationNetwork
+            // And take the accurate location
+            if (locationGps != null && locationNetwork != null) {
+                if (locationGps!!.accuracy > locationNetwork!!.accuracy) {
+                    // If Network is more accurate get Network Location
+                    // Change Button Text to Change Location
+                    btnChangeLocation.setText("Change Location")
+
+                    // Convert to Location Address
+                    val geocoder : Geocoder = Geocoder(this, Locale.getDefault())
+                    val addresses : List<Address>
+
+                    addresses = geocoder.getFromLocation(locationNetwork!!.latitude, locationNetwork!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                    // Store longitude and longitude into the temporary variable
+                    latitude = locationNetwork!!.latitude.toString()
+                    longitude = locationNetwork!!.longitude.toString()
+
+                    // Display Location Address
+                    textViewDisplayLocation.setText("Latitude: ${locationNetwork?.latitude}, Longitude: ${locationNetwork?.longitude}")
+                    textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
+
+                } else {
+                    // Else get GPS Location
+                    // Change Button Text to Change Location
+                    btnChangeLocation.setText("Change Location")
+
+                    // Convert to Location Address
+                    val geocoder : Geocoder = Geocoder(this, Locale.getDefault())
+                    val addresses : List<Address>
+
+                    addresses = geocoder.getFromLocation(locationGps!!.latitude, locationGps!!.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                    // Store longitude and longitude into the temporary variable
+                    latitude = locationGps!!.latitude.toString()
+                    longitude = locationGps!!.longitude.toString()
+
+                    // Display Location Address
+                    textViewDisplayLocation.setText("Latitude: ${locationGps?.latitude}, Longitude: ${locationGps?.longitude}")
+                    textViewDisplayLocation.append("\n\nLocation Address:\n${addresses.get(0).getAddressLine(0)}")
+                }
+            }
+
+
+        } else {
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
     }
 
     private fun saveToDatabase() {
@@ -375,14 +533,14 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
     }
         R.id.btnChangeLocation -> {
             requestPermissions(permissions, PERMISSION_REQUEST)
-            obtieneLocalizacion()
+            getLocation()
         }
         R.id.btnSubmit -> {
             saveToDatabase()
             uploadImage()
-            Toast.makeText(this, "Successfully Submitted!", Toast.LENGTH_LONG).show()
+            /*Toast.makeText(this, "Successfully Submitted!", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(intent)*/
         }
     }
     }

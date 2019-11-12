@@ -34,7 +34,7 @@
                 android:checkable="true"
                 android:clickable="true"
                 app:checkedIconEnabled="true"
-                android:text="Default"/>
+                android:text="All"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_pending"

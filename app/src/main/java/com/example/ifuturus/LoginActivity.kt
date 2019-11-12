@@ -140,7 +140,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                             Toast.makeText(this@LoginActivity, "Please wait until " + accessTimeLimitRemaining + " before you are able to retry and login again...",
                                 Toast.LENGTH_LONG).show()
-                            if (accessTimeLimitRemaining < currentTime) {
+                            if (accessTimeLimitRemaining > currentTime) {
                                 loginTimeLimitPreference.setTimeLimit("")
                                 loginPreference.setLoginCount(5)
                             }

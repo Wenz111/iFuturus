@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
@@ -10,27 +11,30 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImageNavHeader"
-        android:layout_marginTop="0px"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:elevation="1dp"
+        android:layout_marginStart="8dp"
         android:contentDescription="@string/nav_header_desc"
+        android:elevation="1dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/pikademo"
+        app:civ_border_color="@color/colorDarkBackground"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toTopOf="@+id/nameNavHeader"
-        app:layout_constraintStart_toStartOf="@+id/nameNavHeader" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/nameNavHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toTopOf="@+id/userEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/userEmail" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/userEmail"
@@ -47,7 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#BBDEFB"
         android:fontFamily="@font/roboto"
@@ -56,11 +59,11 @@
         android:textColor="#000000"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/userEmail"
-        app:rippleColor="@color/colorCancelRipple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.6"
+        app:rippleColor="@color/colorCancelRipple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
