@@ -193,7 +193,7 @@ class LodgeReportActivity : AppCompatActivity(), View.OnClickListener {
                     map["photoUrl"] = downloadUri.toString()
                     mLodgeReportDatabaseReference.updateChildren(map)
                         .addOnSuccessListener {
-                            Toast.makeText(this, "Successfully Submitted!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Complaint Report has been Successfully Submitted!", Toast.LENGTH_LONG).show()
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }

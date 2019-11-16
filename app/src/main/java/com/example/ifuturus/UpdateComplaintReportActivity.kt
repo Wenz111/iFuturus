@@ -1,10 +1,13 @@
 package com.example.ifuturus
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.ifuturus.adapter.userreportadapter
 import com.example.ifuturus.model.lodgereportmodel
 import com.google.firebase.auth.FirebaseAuth
@@ -46,6 +49,7 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
         edit_my_report.setOnClickListener(this)
         myReportSaveButton.setOnClickListener(this)
         cancel_my_report.setOnClickListener(this)
+        delete_my_report.setOnClickListener(this)
 
         // Get current user
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -84,6 +88,12 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
                         edit_my_report.visibility = View.GONE
                     }
 
+                    // If the User Id is equal to the report Complaint Id
+                    // Then make the Delete Button Visible
+                    if (reportDetails.id == mFirebaseUser!!.uid && reportDetails.complaintStatus == "pending") {
+                        delete_my_report.visibility = View.VISIBLE
+                    }
+
                     // Assign value to Temporary Variable
                     id = reportDetails.id
                     name = reportDetails.name
@@ -114,6 +124,7 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
         myReportTextContainer.visibility = View.VISIBLE
         cancel_my_report.visibility = View.VISIBLE
         edit_my_report.visibility = View.GONE
+        delete_my_report.visibility = View.GONE
     }
 
     private fun cancelReport() {
@@ -121,6 +132,7 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
         myReportTextContainer.visibility = View.GONE
         cancel_my_report.visibility = View.GONE
         edit_my_report.visibility = View.VISIBLE
+        delete_my_report.visibility = View.VISIBLE
     }
 
     private fun updateReportNotes() {
@@ -162,6 +174,29 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
             }
     }
 
+    private fun deleteReport() {
+        // Confirmation for Deleting a Complaint Report
+        val builder = AlertDialog.Builder(this@UpdateComplaintReportActivity)
+        builder.setTitle("Are you sure you want to Delete this Complaint Report?")
+        builder.setMessage("This action cannot be undo.")
+            .setCancelable(false)
+            .setPositiveButton(R.string.yes,
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    // Delete Complaint Report From Firebase Database
+                    val reference = FirebaseDatabase.getInstance().getReference("lodgereport").child("$reportID")
+
+                    reference.removeValue()
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Complaint Report has Successfully been Deleted!", Toast.LENGTH_LONG).show()
+                            finish()
+                        }
+                })
+            .setNegativeButton(R.string.no,
+                DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
+        val alertQuit = builder.create()
+        alertQuit.show()
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.edit_my_report -> {
@@ -172,6 +207,9 @@ class UpdateComplaintReportActivity : AppCompatActivity(), View.OnClickListener 
             }
             R.id.myReportSaveButton -> {
                 updateReportNotes()
+            }
+            R.id.delete_my_report -> {
+                deleteReport()
             }
         }
     }
