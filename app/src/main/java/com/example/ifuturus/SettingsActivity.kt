@@ -80,13 +80,24 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
             .setCancelable(false)
             .setPositiveButton(R.string.yes,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    // Delete User Profile From Firebase Database
-                    mFirebaseUser!!.delete()
+                    // Delete the User Profile From Firebase Database
+                    val reference = FirebaseDatabase.getInstance().getReference("userprofile").child(mFirebaseUser!!.uid)
 
-                    val intent = Intent(Intent.ACTION_MAIN)
-                    intent.addCategory(Intent.CATEGORY_HOME)
-                    startActivity(intent)
-                    finish()
+                    reference.removeValue()
+                        .addOnSuccessListener {
+                            // Delete User Login Credentials From Firebase Database
+                            mFirebaseUser!!.delete()
+                                .addOnSuccessListener {
+                                    val intentMain = Intent(this, MainActivity::class.java)
+                                    startActivity(intentMain)
+                                    finish()
+
+                                    val intent = Intent(Intent.ACTION_MAIN)
+                                    intent.addCategory(Intent.CATEGORY_HOME)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                        }
                 })
             .setNegativeButton(R.string.no,
                 DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
